@@ -1,0 +1,16 @@
+services:
+  mongo:
+    image: mongo:latest
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"
+  authserver:
+    build: ./
+    restart: unless-stopped
+    ports:
+      - 4000:4000

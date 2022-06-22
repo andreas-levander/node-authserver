@@ -15,17 +15,16 @@ const roles = Object.freeze({
 });
 
 const createToken = async ({ username, roles }) => {
-  console.log(username, roles);
-  const jwt = await new jose.SignJWT({
+  console.log(`created token: ${username}, ${roles}`);
+  return await new jose.SignJWT({
     roles,
+    username,
   })
     .setProtectedHeader({ alg: "PS256", typ: "JWT", kid })
     .setIssuedAt()
     .setIssuer("urn:example:issuer")
     .setExpirationTime("10m")
     .sign(privateKey);
-
-  return jwt;
 };
 
 const verifyToken = async (token) => {

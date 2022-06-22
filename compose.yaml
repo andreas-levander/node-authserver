@@ -1,5 +1,5 @@
 services:
-  mongo:
+  mongodb:
     image: mongo:latest
     restart: unless-stopped
     environment:
@@ -7,6 +7,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
       - ./data:/data/db
+      - ./docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     ports:
       - "27017:27017"
   authserver:

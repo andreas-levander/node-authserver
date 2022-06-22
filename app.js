@@ -3,28 +3,37 @@ import eae from "express-async-errors";
 import cors from "cors";
 import mongoose from "mongoose";
 import { MONGODB_URI } from "./utils/config.js";
-import authRouter from "./controllers/auth.js";
+import publicRouter from "./routes/public.js";
+import adminRouter from "./routes/admin.js";
+import tokenExtractor from "./middlewares/tokenExtractor.js";
+import requestLogger from "./middlewares/requestLogger.js";
+import * as logger from "./utils/logger.js";
+import errorHandler from "./middlewares/errorHandler.js";
 
 const app = express();
 
-// logger.info("connecting to", MONGODB_URI);
+logger.info("connecting to", MONGODB_URI);
 
-// mongoose
-//   .connect(MONGODB_URI)
-//   .then(() => {
-//     logger.info("connected to MongoDB");
-//   })
-//   .catch((error) => {
-//     logger.error("error connection to MongoDB:", error.message);
-//   });
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    logger.info("connected to MongoDB");
+  })
+  .catch((error) => {
+    logger.error("error connection to MongoDB:", error.message);
+  });
 
 app.use(cors());
 app.use(express.json());
-// //app.use(tokenExtractor);
-// app.use("/api/blogs", userExtractor, blogRouter);
-// app.use("/api/users", usersRouter);
-app.use("/v1/api/auth", authRouter);
+app.use(requestLogger);
+app.use("/v1/api/admin", tokenExtractor, adminRouter);
+app.use("/v1/api/public", publicRouter);
 
-//app.use(errorHandler);
+app.use(function (req, res, next) {
+  //Capture All 404 errors
+  res.status(404).end();
+});
+
+app.use(errorHandler);
 
 export default app;

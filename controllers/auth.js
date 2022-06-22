@@ -1,7 +1,5 @@
-import express from "express";
 import * as jose from "jose";
-
-const authRouter = express.Router();
+import * as logger from "../utils/logger.js";
 
 const { publicKey, privateKey } = await jose.generateKeyPair("PS256");
 
@@ -11,19 +9,45 @@ const kid = "asd12355435dfs53";
 
 publicJwk.kid = kid;
 
-authRouter.get("/token", async (request, response) => {
+const roles = Object.freeze({
+  admin,
+  user,
+});
+
+const createToken = async (user, roles) => {
+  console.log(user, roles);
   const jwt = await new jose.SignJWT({
-    "urn:example:claim": true,
-    roles: ["user"],
+    roles,
   })
     .setProtectedHeader({ alg: "PS256", typ: "JWT", kid })
+    .setIssuedAt()
+    .setIssuer("urn:example:issuer")
+    .setExpirationTime("10m")
     .sign(privateKey);
 
-  response.status(200).json(jwt);
-});
+  return jwt;
+};
 
-authRouter.get("/validate", (request, response) => {
-  response.status(200).json({ keys: [publicJwk] });
-});
+const verifyToken = async (token) => {
+  try {
+    const { payload, protectedHeader } = await jose.jwtVerify(
+      token,
+      publicKey,
+      {
+        issuer: "urn:example:issuer",
+      }
+    );
 
-export default authRouter;
+    console.log(payload);
+    console.log(protectedHeader);
+    const { roles } = payload;
+    if (roles.includes(roles.admin)) return true;
+
+    return false;
+  } catch (error) {
+    logger.error(error.code);
+    return false;
+  }
+};
+
+export { publicJwk, createToken, verifyToken, roles };

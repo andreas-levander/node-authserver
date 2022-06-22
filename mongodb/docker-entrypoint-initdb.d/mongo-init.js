@@ -12,3 +12,9 @@ db.createUser({
 });
 
 db.createCollection("users");
+
+db.users.insert({
+  username: "admin",
+  passwordHash: "$2b$10$XswkwWIkGxW7plojhU6Q7u5ITSXJS38fwPBbPZRUKHxXBwPNLSRjy",
+  roles: ["admin"],
+});

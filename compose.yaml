@@ -11,7 +11,7 @@ services:
     ports:
       - "27017:27017"
   authserver:
-    build: ./
+    build: ./authserver
     restart: unless-stopped
     ports:
       - 4000:4000

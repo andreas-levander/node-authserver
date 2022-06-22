@@ -1,4 +1,4 @@
-import User from "../models/User";
+import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import passwordGenerator from "generate-password";
 
@@ -18,8 +18,11 @@ const createUser = async (username, roles) => {
     roles,
     passwordHash,
   });
+  const newuser = await user.save();
 
-  return await user.save();
+  newuser.password = password;
+
+  return newuser;
 };
 
 export { createUser };

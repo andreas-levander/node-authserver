@@ -9,6 +9,11 @@ adminRouter.post("/createuser", async (request, response) => {
   if (!request.token)
     return response.status(401).json({ error: "no or bad token in request" });
   if (await verifyToken(request.token)) {
+    if (request.get("Content-Type") !== "application/json")
+      return response
+        .status(404)
+        .json({ error: "request needs to be application/json" });
+
     const { username, roles } = request.body;
 
     if (!username || !roles) {

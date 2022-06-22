@@ -2,6 +2,7 @@ import express from "express";
 import { createToken, publicJwk } from "../controllers/auth.js";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import { roles } from "../controllers/auth.js";
 
 const publicRouter = express.Router();
 
@@ -11,7 +12,12 @@ publicRouter.get("/validate", (request, response) => {
 
 publicRouter.get("/test", async (request, response) => {
   // For testing only
-  response.status(200).json({ key: await createToken() });
+  response.status(200).json({
+    key: await createToken({
+      username: "testuser",
+      roles: [roles.admin, roles.user],
+    }),
+  });
 });
 
 publicRouter.post("/login", async (request, response) => {
@@ -26,6 +32,13 @@ publicRouter.post("/login", async (request, response) => {
       error: "invalid username or password",
     });
   }
+
+  response.status(200).json({
+    key: await createToken({
+      username,
+      roles: user.roles,
+    }),
+  });
 });
 
 export default publicRouter;

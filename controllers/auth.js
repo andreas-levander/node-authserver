@@ -10,12 +10,12 @@ const kid = "asd12355435dfs53";
 publicJwk.kid = kid;
 
 const roles = Object.freeze({
-  admin,
-  user,
+  admin: "admin",
+  user: "user",
 });
 
-const createToken = async (user, roles) => {
-  console.log(user, roles);
+const createToken = async ({ username, roles }) => {
+  console.log(username, roles);
   const jwt = await new jose.SignJWT({
     roles,
   })
@@ -40,8 +40,9 @@ const verifyToken = async (token) => {
 
     console.log(payload);
     console.log(protectedHeader);
-    const { roles } = payload;
-    if (roles.includes(roles.admin)) return true;
+    const token_roles = payload.roles;
+
+    if (token_roles.includes(roles.admin)) return true;
 
     return false;
   } catch (error) {

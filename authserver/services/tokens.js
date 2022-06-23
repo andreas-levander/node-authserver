@@ -1,11 +1,13 @@
 import * as jose from "jose";
 import * as logger from "../utils/logger.js";
+import crypto from "crypto";
+import { KEY_GEN_ALG } from "../utils/config.js";
 
-const { publicKey, privateKey } = await jose.generateKeyPair("PS256");
+const { publicKey, privateKey } = await jose.generateKeyPair(KEY_GEN_ALG);
 
 const publicJwk = await jose.exportJWK(publicKey);
 
-const kid = "asd12355435dfs53";
+const kid = crypto.randomUUID();
 
 publicJwk.kid = kid;
 
@@ -20,9 +22,9 @@ const createToken = async ({ username, roles }) => {
     roles,
     username,
   })
-    .setProtectedHeader({ alg: "PS256", typ: "JWT", kid })
+    .setProtectedHeader({ alg: KEY_GEN_ALG, typ: "JWT", kid })
     .setIssuedAt()
-    .setIssuer("urn:example:issuer")
+    .setIssuer("authserver")
     .setExpirationTime("10m")
     .sign(privateKey);
 };
@@ -33,7 +35,7 @@ const verifyToken = async (token) => {
       token,
       publicKey,
       {
-        issuer: "urn:example:issuer",
+        issuer: "authserver",
       }
     );
 

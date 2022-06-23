@@ -1,5 +1,5 @@
 import Ajv from "ajv";
-import { USERNAME_MINLENGTH } from "../utils/config.js";
+import { USERNAME_MINLENGTH } from "../../utils/config.js";
 
 const ajv = new Ajv();
 

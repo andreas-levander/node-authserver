@@ -2,7 +2,7 @@ import express from "express";
 import { createToken, publicJwk } from "../services/tokens.js";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import { roles } from "../services/tokens.js";
+import roles from "../schemas/roles.js";
 
 const publicRouter = express.Router();
 

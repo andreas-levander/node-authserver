@@ -1,6 +1,6 @@
 import Ajv from "ajv";
-import { roles } from "../services/tokens.js";
-import { USERNAME_MINLENGTH } from "../utils/config.js";
+import roles from "../roles.js";
+import { USERNAME_MINLENGTH } from "../../utils/config.js";
 
 const ajv = new Ajv();
 

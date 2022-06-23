@@ -1,9 +1,8 @@
 import express from "express";
-import { verifyToken } from "../services/tokens.js";
 import User from "../models/User.js";
 import * as admin from "../services/user.js";
-import newUserValidate from "../schemas/newUser.js";
-import removeUserValidate from "../schemas/removeUser.js";
+import newUserValidate from "../schemas/validation/newUser.js";
+import removeUserValidate from "../schemas/validation/removeUser.js";
 
 const adminRouter = express.Router();
 

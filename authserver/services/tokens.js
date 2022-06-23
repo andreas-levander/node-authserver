@@ -2,6 +2,7 @@ import * as jose from "jose";
 import * as logger from "../utils/logger.js";
 import crypto from "crypto";
 import { KEY_GEN_ALG } from "../utils/config.js";
+import roles from "../schemas/roles.js";
 
 const { publicKey, privateKey } = await jose.generateKeyPair(KEY_GEN_ALG);
 
@@ -10,11 +11,6 @@ const publicJwk = await jose.exportJWK(publicKey);
 const kid = crypto.randomUUID();
 
 publicJwk.kid = kid;
-
-const roles = Object.freeze({
-  admin: "admin",
-  user: "user",
-});
 
 const createToken = async ({ username, roles }) => {
   console.log(`created token: ${username}, ${roles}`);
@@ -53,4 +49,4 @@ const verifyToken = async (token) => {
   }
 };
 
-export { publicJwk, createToken, verifyToken, roles };
+export { publicJwk, createToken, verifyToken };

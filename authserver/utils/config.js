@@ -9,4 +9,6 @@ const MONGODB_URI =
     ? process.env.TEST_MONGODB_URI
     : process.env.MONGODB_URI;
 
-export { MONGODB_URI, PORT };
+const USERNAME_MINLENGTH = process.env.USERNAME_MINLENGTH || 5;
+
+export { MONGODB_URI, PORT, USERNAME_MINLENGTH };

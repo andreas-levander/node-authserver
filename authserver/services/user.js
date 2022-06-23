@@ -21,9 +21,7 @@ const createUser = async (username, roles) => {
 
   logger.info(`created new user: ${username}, roles: ${roles}`);
 
-  newuser.password = password;
-
-  return newuser;
+  return { username: newuser.username, password, roles: newuser.roles };
 };
 
 export { createUser };

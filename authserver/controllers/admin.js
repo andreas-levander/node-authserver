@@ -2,34 +2,42 @@ import express from "express";
 import { verifyToken } from "../services/tokens.js";
 import User from "../models/User.js";
 import * as admin from "../services/user.js";
-import userValidate from "../schemas/newUser.js";
+import newUserValidate from "../schemas/newUser.js";
+import removeUserValidate from "../schemas/removeUser.js";
 
 const adminRouter = express.Router();
 
 adminRouter.post("/createuser", async (request, response) => {
-  if (!request.token)
-    return response.status(401).json({ error: "no or bad token in request" });
-  if (await verifyToken(request.token)) {
-    const { username, roles } = request.body;
+  if (!newUserValidate(request.body))
+    return response
+      .status(400)
+      .json({ message: "Incorrect input", error: newUserValidate.errors });
 
-    const valid = userValidate(request.body);
+  const { username, roles } = request.body;
 
-    if (!valid)
-      return response
-        .status(400)
-        .json({ message: "Incorrect input", error: userValidate.errors });
+  const existingUser = await User.findOne({ username });
+  if (existingUser) {
+    return response.status(400).json({
+      error: "username must be unique",
+    });
+  }
 
-    const existingUser = await User.findOne({ username });
-    if (existingUser) {
-      return response.status(400).json({
-        error: "username must be unique",
-      });
-    }
+  const newuser = await admin.createUser(username, roles);
 
-    const newuser = await admin.createUser(username, roles);
+  return response.status(200).json({ message: "new user created", newuser });
+});
 
-    return response.status(200).json({ message: "new user created", newuser });
-  } else return response.status(401).json({ error: "unauthorized" });
+adminRouter.post("/removeuser", async (request, response) => {
+  if (!removeUserValidate(request.body))
+    return response
+      .status(400)
+      .json({ message: "Incorrect input", error: removeUserValidate.errors });
+
+  const { username } = request.body;
+
+  await User.deleteOne({ username });
+
+  return response.status(200).json({ message: `Removed user: ${username}` });
 });
 
 export default adminRouter;

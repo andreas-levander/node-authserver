@@ -41,11 +41,12 @@ const verifyToken = async (token) => {
     console.log(protectedHeader);
     const token_roles = payload.roles;
 
+    //verifies user is admin
     if (token_roles.includes(roles.admin)) return true;
 
     return false;
   } catch (error) {
-    logger.error(error.code);
+    logger.error(`Token verification error code: ${error.code}`);
     return false;
   }
 };

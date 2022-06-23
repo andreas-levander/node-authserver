@@ -1,12 +1,13 @@
 import Ajv from "ajv";
 import { roles } from "../services/tokens.js";
+import { USERNAME_MINLENGTH } from "../utils/config.js";
 
 const ajv = new Ajv();
 
 const schema = {
   type: "object",
   properties: {
-    username: { type: "string", minLength: 5 },
+    username: { type: "string", minLength: USERNAME_MINLENGTH },
     roles: {
       type: "array",
       minItems: 1,
@@ -18,6 +19,6 @@ const schema = {
   additionalProperties: false,
 };
 
-const userValidate = ajv.compile(schema);
+const newUserValidate = ajv.compile(schema);
 
-export default userValidate;
+export default newUserValidate;

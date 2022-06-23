@@ -4,12 +4,13 @@ import eae from "express-async-errors";
 import cors from "cors";
 import mongoose from "mongoose";
 import { MONGODB_URI } from "./utils/config.js";
-import publicRouter from "./routes/public.js";
-import adminRouter from "./routes/admin.js";
+import publicRouter from "./controllers/public.js";
+import adminRouter from "./controllers/admin.js";
 import tokenExtractor from "./middlewares/tokenExtractor.js";
 import requestLogger from "./middlewares/requestLogger.js";
 import * as logger from "./utils/logger.js";
 import errorHandler from "./middlewares/errorHandler.js";
+import helmet from "helmet";
 
 const app = express();
 
@@ -24,7 +25,9 @@ mongoose
     logger.error("error connection to MongoDB:", error.message);
   });
 
-app.use(cors());
+//app.use(helmet());
+
+//app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
 app.use("/v1/api/admin", tokenExtractor, adminRouter);

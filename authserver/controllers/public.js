@@ -1,8 +1,8 @@
 import express from "express";
-import { createToken, publicJwk } from "../controllers/auth.js";
+import { createToken, publicJwk } from "../services/tokens.js";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import { roles } from "../controllers/auth.js";
+import { roles } from "../services/tokens.js";
 
 const publicRouter = express.Router();
 

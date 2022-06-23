@@ -2,6 +2,7 @@ import express from "express";
 import { verifyToken } from "../services/tokens.js";
 import User from "../models/User.js";
 import * as admin from "../services/user.js";
+import userValidate from "../schemas/newUser.js";
 
 const adminRouter = express.Router();
 
@@ -11,15 +12,12 @@ adminRouter.post("/createuser", async (request, response) => {
   if (await verifyToken(request.token)) {
     const { username, roles } = request.body;
 
-    if (!username || !roles) {
-      return response.status(400).json({ error: "username or roles missing" });
-    }
+    const valid = userValidate(request.body);
 
-    if (username.length < 4) {
-      return response.status(400).json({
-        error: "username must be atleast 3 characters long",
-      });
-    }
+    if (!valid)
+      return response
+        .status(400)
+        .json({ message: "Incorrect input", error: userValidate.errors });
 
     const existingUser = await User.findOne({ username });
     if (existingUser) {

@@ -4,8 +4,6 @@ import passwordGenerator from "generate-password";
 import * as logger from "../utils/logger.js";
 
 const createUser = async (username, roles) => {
-  console.log(username, roles);
-
   const password = passwordGenerator.generate({
     length: 10,
     numbers: true,

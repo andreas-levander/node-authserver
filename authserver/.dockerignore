@@ -7,3 +7,4 @@ Dockerfile
 .env
 .eslintrc.json
 /requests-test
+added-users.json

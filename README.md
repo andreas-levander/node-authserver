@@ -5,8 +5,9 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 
 ## Table of Contents
 
-[Features](#features)
-[Endpoints](#endpoints)
+- [Features](#features)
+- [API Endpoints](#API Endpoints)
+    * [Login](#login)
 
 ## Features
 
@@ -17,13 +18,16 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 - Login Api to serve authorized users a Json Web Token
 - Admin Api to create/remove users
 
-## Endpoints
+## API Endpoints
 
-#### Login
+### Login
 
 `/v1/api/public/login`
 
-Request should have json body with username and password
+Method: POST
+Content-Type: application/json
+
+Request body should have username and password in json format
 
 Example
 

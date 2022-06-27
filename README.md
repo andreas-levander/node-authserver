@@ -6,6 +6,7 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 ## Table of Contents
 
 - [Features](#features)
+- [Setup](#setup)
 - [API Endpoints](#API-Endpoints)
     - [Public](#Public)
     - [Private](#Private)
@@ -18,6 +19,38 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 - Public key endpoint to let services verify token
 - Login Api to serve authorized users a Json Web Token
 - Admin Api to create/remove users
+
+## Setup
+
+### Using Docker
+
+Quick start using docker  
+`docker compose up`
+
+#### Requirements
+
+- Docker
+- Docker compose
+
+#### Configuration
+
+Todo
+
+
+### Without Docker using Npm
+
+#### Requirements
+
+- npm && Node.js 16
+- Mongodb
+
+#### Installation
+
+1. Setup your database
+2. Add your MONGODB_URI in an .env file in /authserver directory or in /authserver/utils/config.js
+3. Install dependencies `cd authserver && npm install --omit=dev`
+4. Start server `npm start`
+
 
 ## API Endpoints
 

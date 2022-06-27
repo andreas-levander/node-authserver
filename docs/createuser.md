@@ -6,7 +6,7 @@ Creates new user with the username and roles provided and returns a the new user
 
 **Method** : `POST`  
 **Content-Type** : `application/json`  
-**Authentication required** : Yes
+**Authentication required** : Yes  
 **Role required** : Admin  
 
 Request body should have username and roles in json format

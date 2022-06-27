@@ -7,7 +7,8 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 
 - [Features](#features)
 - [API Endpoints](#API-Endpoints)
-    * [Login](#login)
+    - [Public](#Public)
+    - [Private](#Private)
 
 ## Features
 
@@ -20,5 +21,10 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 
 ## API Endpoints
 
+### Public
+
 - [Login](/docs/login.md) : `POST /v1/api/public/login`
+- [Validate](/docs/validate.md) : `GET /v1/api/public/validate`
+
+### Private
 

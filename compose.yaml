@@ -14,6 +14,8 @@ services:
   authserver:
     build: ./authserver
     restart: unless-stopped
+    depends_on:
+      - mongodb
     environment:
       - MONGODB_URI=mongodb://testuser:password@mongodb:27017/authdb
     ports:

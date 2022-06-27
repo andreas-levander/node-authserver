@@ -10,10 +10,10 @@ Request body should have username and password in json format
 
 **Example**
 ```json
-    {
-        "username": "valid-username",
-        "password": "valid-password"
-    }
+{
+    "username": "valid-username",
+    "password": "valid-password"
+}
 ```
 
 ## Success Response

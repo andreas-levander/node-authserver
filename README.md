@@ -28,3 +28,6 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 
 ### Private
 
+- [Create User](/docs/createuser.md) : `POST /v1/api/admin/createuser`
+
+

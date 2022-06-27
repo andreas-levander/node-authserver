@@ -20,5 +20,5 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 
 ## API Endpoints
 
-- [Login](/docs/login.md) : `POST /api/login/`
+- [Login](/docs/login.md) : `POST /v1/api/public/login`
 

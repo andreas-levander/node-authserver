@@ -2,9 +2,9 @@
 
 **URL** : `/v1/api/public/login`
 
-**Method** : `POST`
-**Content-Type** : `application/json`
-**Auth required** : No
+**Method** : `POST`  
+**Content-Type** : `application/json`  
+**Authentication required** : No  
 
 Request body should have username and password in json format
 

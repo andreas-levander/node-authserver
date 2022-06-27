@@ -41,7 +41,7 @@ Todo
 
 #### Requirements
 
-- npm && Node.js 16
+- npm & Node.js 16
 - Mongodb
 
 #### Installation

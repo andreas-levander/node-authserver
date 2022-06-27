@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import * as admin from "../services/user.js";
 import newUserValidate from "../schemas/validation/newUser.js";
 import removeUserValidate from "../schemas/validation/removeUser.js";
+import logger from "../utils/logger.js";
 
 const adminRouter = express.Router();
 
@@ -23,6 +24,8 @@ adminRouter.post("/createuser", async (request, response) => {
 
   const newuser = await admin.createUser(username, roles);
 
+  logger.info(`${request.user} created new user: ${username}, roles: ${roles}`);
+
   return response.status(200).json({ message: "new user created", newuser });
 });
 
@@ -35,6 +38,8 @@ adminRouter.post("/removeuser", async (request, response) => {
   const { username } = request.body;
 
   await User.deleteOne({ username });
+
+  logger.info(`${request.user} removed user: ${username}`);
 
   return response.status(200).json({ message: `Removed user: ${username}` });
 });

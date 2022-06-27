@@ -1,7 +1,7 @@
-import * as logger from "../utils/logger.js";
+import logger from "../utils/logger.js";
 
 const loggerMiddleware = (request, response, next) => {
-  logger.info(
+  logger.http(
     `${request.method} - ${request.originalUrl} - ${request.socket.remoteAddress}`
   );
 

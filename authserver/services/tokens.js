@@ -1,5 +1,5 @@
 import * as jose from "jose";
-import * as logger from "../utils/logger.js";
+import logger from "../utils/logger.js";
 import crypto from "crypto";
 import { KEY_GEN_ALG } from "../utils/config.js";
 import roles from "../schemas/roles.js";
@@ -37,14 +37,10 @@ const verifyToken = async (token) => {
 
     console.log(payload);
     console.log(protectedHeader);
-    const token_roles = payload.roles;
 
-    //verifies user is admin
-    if (token_roles.includes(roles.admin)) return true;
-
-    return false;
+    return payload;
   } catch (error) {
-    logger.error(`Token verification error code: ${error.code}`);
+    logger.warn(`Token verification error code: ${error.code}`);
     return false;
   }
 };

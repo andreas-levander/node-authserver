@@ -1,5 +1,5 @@
 {
-  "name": "dockertest",
+  "name": "authserver",
   "version": "1.0.0",
   "description": "Auth server for Api-Gateway",
   "main": "index.js",
@@ -21,7 +21,9 @@
     "generate-password": "^1.7.0",
     "helmet": "^5.1.0",
     "jose": "^4.8.1",
-    "mongoose": "^6.4.0"
+    "mongoose": "^6.4.0",
+    "winston": "^3.8.0",
+    "winston-daily-rotate-file": "^4.7.1"
   },
   "devDependencies": {
     "eslint": "^8.18.0",

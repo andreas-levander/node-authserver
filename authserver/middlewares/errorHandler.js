@@ -1,4 +1,4 @@
-import * as logger from "../utils/logger.js";
+import logger from "../utils/logger.js";
 
 const errorHandler = (error, request, response, next) => {
   logger.error(error.message);

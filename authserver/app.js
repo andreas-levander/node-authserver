@@ -8,14 +8,14 @@ import publicRouter from "./controllers/public.js";
 import adminRouter from "./controllers/admin.js";
 import tokenExtractor from "./middlewares/tokenExtractor.js";
 import requestLogger from "./middlewares/requestLogger.js";
-import * as logger from "./utils/logger.js";
+import logger from "./utils/logger.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import auth from "./middlewares/auth.js";
 import helmet from "helmet";
 
 const app = express();
 
-logger.info("connecting to", MONGODB_URI);
+logger.info("connecting to MongoDB", MONGODB_URI);
 
 mongoose
   .connect(MONGODB_URI)

@@ -1,7 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import passwordGenerator from "generate-password";
-import * as logger from "../utils/logger.js";
+import logger from "../utils/logger.js";
 
 const createUser = async (username, roles) => {
   const password = passwordGenerator.generate({
@@ -18,8 +18,6 @@ const createUser = async (username, roles) => {
     passwordHash,
   });
   const newuser = await user.save();
-
-  logger.info(`created new user: ${username}, roles: ${roles}`);
 
   return { username: newuser.username, password, roles: newuser.roles };
 };

@@ -34,7 +34,7 @@ publicRouter.post("/login", async (request, response) => {
   }
 
   response.status(200).json({
-    key: await createToken({
+    token: await createToken({
       username,
       roles: user.roles,
     }),

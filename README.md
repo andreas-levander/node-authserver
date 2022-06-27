@@ -6,7 +6,7 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 ## Table of Contents
 
 - [Features](#features)
-- [API Endpoints](#API Endpoints)
+- [API Endpoints](#API-Endpoints)
     * [Login](#login)
 
 ## Features
@@ -22,18 +22,45 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 
 ### Login
 
-`/v1/api/public/login`
+**URL** : `/v1/api/public/login`
 
-Method: POST
-Content-Type: application/json
+**Method** : `POST`
+**Content-Type** : `application/json`
+**Auth required** : No
 
 Request body should have username and password in json format
 
-Example
-
+**Example**
+```json
     {
-        "username": "your-username",
-        "password": "your-password"
+        "username": "valid-username",
+        "password": "valid-password"
     }
+```
 
+#### Success Response
+
+**Code** : `200 OK`
+
+**Example**
+
+```json
+{
+    "token": "93144b288eb1fdccbe46d6fc0f241a51766ecd3d"
+}
+```
+
+#### Error Response
+
+**Condition** : If 'username' and 'password' combination is wrong.
+
+**Code** : `401 Unauthorized`
+
+**Content** :
+
+```json
+{
+    "error": "invalid username or password"
+}
+```
 

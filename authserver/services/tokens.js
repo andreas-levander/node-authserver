@@ -41,7 +41,7 @@ const verifyToken = async (token) => {
     return payload;
   } catch (error) {
     logger.warn(`Token verification error code: ${error.code}`);
-    return false;
+    return {};
   }
 };
 

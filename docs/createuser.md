@@ -39,13 +39,15 @@ Request body should have username and roles in json format
 }
 ```
 
-## Error Response
+## Error Responses
+
+### 
 
 **Condition** : If you are not logged in as admin or token is invalid.
 
 **Code** : `401 Unauthorized`
 
-**Content** :
+**Response** :
 
 ```json
 {
@@ -53,11 +55,13 @@ Request body should have username and roles in json format
 }
 ```
 
+
+
 **Condition** : If don't send a token in Authorization header
 
 **Code** : `401 Unauthorized`
 
-**Content** :
+**Response** :
 
 ```json
 {
@@ -65,17 +69,21 @@ Request body should have username and roles in json format
 }
 ```
 
+
+
 **Condition** : if user already exists
 
 **Code** : `400 Bad Request`
 
-**Content** :
+**Response** :
 
 ```json
 {
     "error": "username must be unique"
 }
 ```
+
+
 
 **Condition** : if input validation fails
 

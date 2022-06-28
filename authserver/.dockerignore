@@ -8,3 +8,4 @@ Dockerfile
 .eslintrc.json
 /requests-test
 added-users.json
+/tests

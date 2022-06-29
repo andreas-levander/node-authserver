@@ -18,6 +18,8 @@ services:
       - mongodb
     environment:
       - MONGODB_URI=mongodb://testuser:password@mongodb:27017/authdb
+    volumes:
+      - ./logs:/app/logs
     ports:
       - 4000:4000
     links:

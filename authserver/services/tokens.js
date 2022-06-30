@@ -2,7 +2,6 @@ import * as jose from "jose";
 import logger from "../utils/logger.js";
 import crypto from "crypto";
 import { KEY_GEN_ALG } from "../utils/config.js";
-import roles from "../schemas/roles.js";
 
 const { publicKey, privateKey } = await jose.generateKeyPair(KEY_GEN_ALG);
 
@@ -13,7 +12,6 @@ const kid = crypto.randomUUID();
 publicJwk.kid = kid;
 
 const createToken = async ({ username, roles }) => {
-  console.log(`created token: ${username}, ${roles}`);
   return await new jose.SignJWT({
     roles,
     username,
@@ -34,9 +32,6 @@ const verifyToken = async (token) => {
         issuer: "authserver",
       }
     );
-
-    console.log(payload);
-    console.log(protectedHeader);
 
     return payload;
   } catch (error) {

@@ -3,6 +3,7 @@ import { createToken, publicJwk } from "../services/tokens.js";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import roles from "../schemas/roles.js";
+import logger from "../utils/logger.js";
 
 const publicRouter = express.Router();
 
@@ -41,6 +42,8 @@ publicRouter.post("/login", async (request, response) => {
       error: "invalid username or password",
     });
   }
+
+  logger.info(`${username} logged in`);
 
   response.status(200).json({
     token: await createToken({

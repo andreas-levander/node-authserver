@@ -21,7 +21,16 @@ publicRouter.get("/test", async (request, response) => {
 });
 
 publicRouter.post("/login", async (request, response) => {
-  const { username, password } = request.body;
+  let { username, password } = request.body;
+
+  if (!username || !password) {
+    ({ username, password } = request.query);
+  }
+
+  if (!username || !password)
+    return response.status(400).json({
+      error: "username or password missing",
+    });
 
   const user = await User.findOne({ username });
   const passwordCorrect =

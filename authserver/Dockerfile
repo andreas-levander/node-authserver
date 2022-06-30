@@ -9,7 +9,7 @@ COPY ["package.json", "package-lock.json*", "./"]
 
 RUN npm ci --only=production
 
-COPY . .
+COPY --chown=node . .
 
 USER node
 

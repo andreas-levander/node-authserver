@@ -1,5 +1,5 @@
 import express from "express";
-import { createToken, publicJwk } from "../services/tokens.js";
+import { createToken, getPublicKeys } from "../services/tokens.js";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import roles from "../schemas/roles.js";
@@ -7,8 +7,8 @@ import logger from "../utils/logger.js";
 
 const publicRouter = express.Router();
 
-publicRouter.get("/validate", (request, response) => {
-  response.status(200).json({ keys: [publicJwk] });
+publicRouter.get("/validate", async (request, response) => {
+  response.status(200).json({ keys: await getPublicKeys() });
 });
 
 publicRouter.get("/test", async (request, response) => {

@@ -7,20 +7,36 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      - ./mongodb/data:/data/db
+      - ./mongodb/data:/data/db # where to mount the mongodb data
       - ./mongodb/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     ports:
       - "27017:27017"
+    networks:
+      - authserver
+  redis:
+    image: redis:7.0.2-alpine
+    restart: unless-stopped
+    command: redis-server --bind redis --requirepass some-long-password --loglevel debug
+    volumes:
+      - ./authserver/redis/data:/data
+    networks:
+      - authserver
   authserver:
-    build: ./authserver
+    build: ./authserver # path to authserver Dockerfile
     restart: unless-stopped
     depends_on:
+      - redis
       - mongodb
     environment:
       - MONGODB_URI=mongodb://testuser:password@mongodb:27017/authdb
+      - REDIS_URI=redis://default:some-long-password@redis:6379
     volumes:
-      - ./logs:/app/logs
+      - ./authserver/logs:/app/logs # where to put logs
     ports:
       - 4000:4000
-    links:
-      - mongodb:database
+    networks:
+      - authserver
+
+networks:
+  authserver:
+    driver: bridge

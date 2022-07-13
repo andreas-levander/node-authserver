@@ -3,7 +3,7 @@ import express from "express";
 import eae from "express-async-errors";
 import cors from "cors";
 import mongoose from "mongoose";
-import { MONGODB_URI } from "./utils/config.js";
+import { MONGODB_URI, REDIS_URI } from "./utils/config.js";
 import publicRouter from "./controllers/public.js";
 import adminRouter from "./controllers/admin.js";
 import tokenExtractor from "./middlewares/tokenExtractor.js";
@@ -12,6 +12,7 @@ import logger from "./utils/logger.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import auth from "./middlewares/auth.js";
 import helmet from "helmet";
+import { createClient } from "@redis/client";
 
 const app = express();
 
@@ -25,6 +26,14 @@ mongoose
   .catch((error) => {
     logger.error("error connection to MongoDB:", error.message);
   });
+
+const redisClient = createClient({
+  url: REDIS_URI,
+});
+
+redisClient.on("error", (err) => logger.error("Redis Client Error", err));
+
+await redisClient.connect();
 
 //app.use(helmet());
 
@@ -41,4 +50,5 @@ app.use(function (req, res) {
 
 app.use(errorHandler);
 
+export { redisClient };
 export default app;

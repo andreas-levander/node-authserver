@@ -11,6 +11,22 @@ const MONGODB_URI =
 
 const USERNAME_MINLENGTH = process.env.USERNAME_MINLENGTH || 5;
 
-const KEY_GEN_ALG = "EdDSA";
+const KEY_GEN_ALG = process.env.KEY_GEN_ALG || "EdDSA";
 
-export { MONGODB_URI, PORT, USERNAME_MINLENGTH, KEY_GEN_ALG };
+const REDIS_URI = process.env.REDIS_URI;
+
+//asymmetric keys ttl in seconds
+const KEY_TTL = process.env.KEY_TTL || 2592000;
+
+//Token time to live in minutes
+const TOKEN_TTL = process.env.TOKEN_TTL || 15;
+
+export {
+  MONGODB_URI,
+  PORT,
+  USERNAME_MINLENGTH,
+  KEY_GEN_ALG,
+  REDIS_URI,
+  KEY_TTL,
+  TOKEN_TTL,
+};

@@ -1,15 +1,22 @@
+# Role Based Authentication Server <!-- omit in toc -->
 
-# Role Based Authentication Server
+Authentication server created with Node.js, MongoDB and Redis to be used for Role Based Authentication (RBAC)
 
-Authentication server created with Node.js and MongoDB to be used for Role Based Authentication (RBAC)
-
-## Table of Contents
+## Table of Contents <!-- omit in toc -->
 
 - [Features](#features)
 - [Setup](#setup)
-- [API Endpoints](#API-Endpoints)
-    - [Public](#Public)
-    - [Private](#Private)
+  - [Using Docker](#using-docker)
+    - [Requirements](#requirements)
+  - [Without Docker using Npm](#without-docker-using-npm)
+    - [Requirements](#requirements-1)
+    - [Installation](#installation)
+  - [MongoDB](#mongodb)
+- [Configuration](#configuration)
+  - [Environmental variables](#environmental-variables)
+- [API Endpoints](#api-endpoints)
+  - [Public](#public)
+  - [Private](#private)
 
 ## Features
 
@@ -24,18 +31,16 @@ Authentication server created with Node.js and MongoDB to be used for Role Based
 
 ### Using Docker
 
-Quick start using docker  
-`docker compose up`
+Quick start using docker
+
+```
+docker compose up
+```
 
 #### Requirements
 
 - Docker
 - Docker compose
-
-#### Configuration
-
-Todo
-
 
 ### Without Docker using Npm
 
@@ -43,6 +48,7 @@ Todo
 
 - npm & Node.js 16
 - Mongodb
+- Redis
 
 #### Installation
 
@@ -51,6 +57,29 @@ Todo
 3. Install dependencies `cd authserver && npm install --omit=dev`
 4. Start server `npm start`
 
+### MongoDB
+
+Initialization script location: `/mongodb/docker-entrypoint-initdb.d`
+
+When starting MongoDB for the first time it will run the initialization script if it is mounted in the mongodb container as done by default in the docker [compose](compose.yaml).
+
+You should configure the script with the username and password used by the authserver.
+
+Also you should change the root username and password in the [compose](compose.yaml).
+
+## Configuration
+
+You can configure the authserver by setting environmental variables.
+
+### Environmental variables
+
+`PORT` default=4000  
+`MONGODB_URI` set your mongodb uri here  
+`USERNAME_MINLENGTH` minimum required username length. default=5  
+`KEY_GEN_ALG` algorithm used for generating json web tokens. default=EdDSA  
+`REDIS_URI` set your redis uri here  
+`KEY_TTL` how long the asymmetric keys used for encryption will last until renewed in seconds. default=2592000 (30 days)  
+`TOKEN_TTL` how long a issued token is valid in minutes. default=15
 
 ## API Endpoints
 
@@ -62,5 +91,4 @@ Todo
 ### Private
 
 - [Create User](/docs/createuser.md) : `POST /v1/api/admin/createuser`
-
-
+- [Remove User](/docs/removeuser.md) : `POST /v1/api/admin/removeuser`

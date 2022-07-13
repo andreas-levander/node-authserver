@@ -20,7 +20,7 @@ Authentication server created with Node.js, MongoDB and Redis to be used for Rol
 
 ## Features
 
-- Asymmetric key generation
+- Asymmetric key generation and rotation
 - Input validation
 - Password generation
 - Public key endpoint to let services verify token
@@ -54,8 +54,9 @@ docker compose up
 
 1. Setup your database
 2. Add your MONGODB_URI in an .env file in /authserver directory or in /authserver/utils/config.js
-3. Install dependencies `cd authserver && npm install --omit=dev`
-4. Start server `npm start`
+3. Add your REDIS_URI in .env file
+4. Install dependencies `cd authserver && npm install --omit=dev`
+5. Start server `npm start`
 
 ### MongoDB
 

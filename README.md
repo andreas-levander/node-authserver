@@ -72,7 +72,7 @@ Also you should change the root username and password in the [compose](compose.y
 
 ### Redis
 
-Redis is used to store the asymmetric keys in memory. You can also enable redis persistance storage to save them to disk unencrypted.
+Redis is used to store the asymmetric keys in memory. You can also enable redis [persistance](https://redis.io/docs/manual/persistence/) storage to save them to disk unencrypted.
 
 Restarting redis without persistance storage enabled will cause encryption keys to be regenerated which means all tokens in use will be invalidated.
 

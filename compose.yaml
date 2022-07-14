@@ -16,7 +16,7 @@ services:
   redis:
     image: redis:7.0.2-alpine
     restart: unless-stopped
-    command: redis-server --bind redis --requirepass some-long-password --loglevel debug
+    command: redis-server --bind redis --requirepass some-long-password --loglevel debug --save ""
     volumes:
       - ./authserver/redis/data:/data
     networks:

@@ -38,7 +38,7 @@ const generateKeyPair = async () => {
   publicKeyExport.kid = kid;
 
   await redisClient.set(`publicKey:${kid}`, JSON.stringify(publicKeyExport), {
-    EX: KEY_TTL + Math.floor(TOKEN_TTL / 60),
+    EX: KEY_TTL + TOKEN_TTL * 60,
   });
   await redisClient.set(`privateKey:${kid}`, privateKeyExport, { EX: KEY_TTL });
 

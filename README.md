@@ -12,6 +12,7 @@ Authentication server created with Node.js, MongoDB and Redis to be used for Rol
     - [Requirements](#requirements-1)
     - [Installation](#installation)
   - [MongoDB](#mongodb)
+  - [Redis](#redis)
 - [Configuration](#configuration)
   - [Environmental variables](#environmental-variables)
 - [API Endpoints](#api-endpoints)
@@ -23,6 +24,7 @@ Authentication server created with Node.js, MongoDB and Redis to be used for Rol
 - Asymmetric key generation and rotation
 - Input validation
 - Password generation
+- Basic logging
 - Public key endpoint to let services verify token
 - Login Api to serve authorized users a Json Web Token
 - Admin Api to create/remove users
@@ -67,6 +69,12 @@ When starting MongoDB for the first time it will run the initialization script i
 You should configure the script with the username and password used by the authserver.
 
 Also you should change the root username and password in the [compose](compose.yaml).
+
+### Redis
+
+Redis is used to store the asymmetric keys in memory. You can also enable redis persistance storage to save them to disk unencrypted.
+
+Restarting redis without persistance storage enabled will cause encryption keys to be regenerated which means all tokens in use will be invalidated.
 
 ## Configuration
 

@@ -1,10 +1,15 @@
-import Ajv from "ajv";
+import Ajv, { JSONSchemaType } from "ajv";
 import roles from "../roles.js";
 import { USERNAME_MINLENGTH } from "../../utils/config.js";
 
-const ajv = new Ajv();
+const ajv = new Ajv.default();
 
-const schema = {
+interface NewUser {
+  username: string;
+  roles: string[];
+}
+
+const schema: JSONSchemaType<NewUser> = {
   type: "object",
   properties: {
     username: { type: "string", minLength: USERNAME_MINLENGTH },

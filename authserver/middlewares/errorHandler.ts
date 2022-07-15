@@ -1,6 +1,12 @@
+import { NextFunction, Request, Response } from "express";
 import logger from "../utils/logger.js";
 
-const errorHandler = (error, request, response, next) => {
+const errorHandler = (
+  error: Error,
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   logger.error(error.message);
 
   //   if (error.name === "CastError") {

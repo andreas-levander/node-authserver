@@ -1,8 +1,8 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import passwordGenerator from "generate-password";
+import passwordGenerator from "generate-password-ts";
 
-const createUser = async (username, roles) => {
+const createUser = async (username: string, roles: string[]) => {
   const password = passwordGenerator.generate({
     length: 10,
     numbers: true,

@@ -1,6 +1,11 @@
+import { NextFunction, Request, Response } from "express";
 import logger from "../utils/logger.js";
 
-const loggerMiddleware = (request, response, next) => {
+const loggerMiddleware = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
   logger.http(`${request.method} - ${request.path} - ${request.ip}`);
 
   next();

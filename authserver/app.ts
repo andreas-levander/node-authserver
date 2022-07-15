@@ -43,7 +43,7 @@ app.use(requestLogger);
 app.use("/v1/api/admin", tokenExtractor, auth, adminRouter);
 app.use("/v1/api/public", publicRouter);
 
-app.use(function (req, res) {
+app.use(function (_req, res) {
   //Capture All 404 errors
   res.status(404).end();
 });

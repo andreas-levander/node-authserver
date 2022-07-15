@@ -4,14 +4,15 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import roles from "../schemas/roles.js";
 import logger from "../utils/logger.js";
+import loginValidate from "../schemas/validation/login.js";
 
 const publicRouter = express.Router();
 
-publicRouter.get("/validate", async (request, response) => {
+publicRouter.get("/validate", async (_request, response) => {
   response.status(200).json({ keys: await getPublicKeys() });
 });
 
-publicRouter.get("/test", async (request, response) => {
+publicRouter.get("/test", async (_request, response) => {
   // For testing only
   response.status(200).json({
     key: await createToken({
@@ -22,16 +23,15 @@ publicRouter.get("/test", async (request, response) => {
 });
 
 publicRouter.post("/login", async (request, response) => {
+  if (!loginValidate(request.body) || !loginValidate(request.query))
+    return response.status(400).json({
+      error: "username or password missing",
+    });
   let { username, password } = request.body;
 
   if (!username || !password) {
     ({ username, password } = request.query);
   }
-
-  if (!username || !password)
-    return response.status(400).json({
-      error: "username or password missing",
-    });
 
   const user = await User.findOne({ username });
   const passwordCorrect =
@@ -45,7 +45,7 @@ publicRouter.post("/login", async (request, response) => {
 
   logger.info(`${username} logged in`);
 
-  response.status(200).json({
+  return response.status(200).json({
     token: await createToken({
       username,
       roles: user.roles,

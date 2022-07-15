@@ -1,9 +1,13 @@
-import Ajv from "ajv";
+import Ajv, { JSONSchemaType } from "ajv";
 import { USERNAME_MINLENGTH } from "../../utils/config.js";
 
-const ajv = new Ajv();
+const ajv = new Ajv.default();
 
-const schema = {
+interface RemoveUser {
+  username: string;
+}
+
+const schema: JSONSchemaType<RemoveUser> = {
   type: "object",
   properties: {
     username: { type: "string", minLength: USERNAME_MINLENGTH },

@@ -2,11 +2,11 @@
   "name": "authserver",
   "version": "1.0.0",
   "description": "Auth server for Api-Gateway",
-  "main": "index.js",
+  "main": "index.ts",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "ts-node-dev index.ts",
+    "start": "ts-node index.ts",
+    "dev": "nodemon",
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --runInBand --forceExit",
     "tsc": "tsc",
     "ts-node": "ts-node"

@@ -3,7 +3,7 @@ import logger from "../utils/logger.js";
 
 const loggerMiddleware = (
   request: Request,
-  response: Response,
+  _response: Response,
   next: NextFunction
 ) => {
   logger.http(`${request.method} - ${request.path} - ${request.ip}`);

@@ -63,7 +63,7 @@ const createToken = async ({
   const { privateKey, kid } = await getRandomPrivateKey();
   return await new jose.SignJWT({
     roles,
-    username,
+    sub: username,
   })
     .setProtectedHeader({ alg: KEY_GEN_ALG, typ: "JWT", kid })
     .setIssuedAt()
@@ -81,16 +81,11 @@ const verifyToken = async (token: string) => {
   );
 
   try {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { payload, protectedHeader } = await jose.jwtVerify(
-      token,
-      publicKey,
-      {
-        issuer: "authserver",
-      }
-    );
-    const { username, roles } = payload;
-    return { username, roles };
+    const { payload } = await jose.jwtVerify(token, publicKey, {
+      issuer: "authserver",
+    });
+    const { sub, roles } = payload;
+    return { username: sub, roles };
   } catch (error) {
     logger.warn(
       `Token verification error code: ${

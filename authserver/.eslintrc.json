@@ -5,6 +5,7 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "plugins": ["@typescript-eslint"],
+  "ignorePatterns": ["**/*.js"],
   "env": {
     "browser": true,
     "es2021": true,

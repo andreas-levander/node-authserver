@@ -1,7 +1,5 @@
 import express from "express";
-// eslint-disable-next-line no-unused-vars
-import eae from "express-async-errors";
-import cors from "cors";
+import "express-async-errors";
 import mongoose from "mongoose";
 import { MONGODB_URI, REDIS_URI } from "./utils/config.js";
 import publicRouter from "./controllers/public.js";
@@ -11,7 +9,6 @@ import requestLogger from "./middlewares/requestLogger.js";
 import logger from "./utils/logger.js";
 import errorHandler from "./middlewares/errorHandler.js";
 import auth from "./middlewares/auth.js";
-import helmet from "helmet";
 import { createClient } from "@redis/client";
 
 const app = express();
@@ -35,9 +32,6 @@ redisClient.on("error", (err) => logger.error("Redis Client Error", err));
 
 await redisClient.connect();
 
-//app.use(helmet());
-
-//app.use(cors());
 app.use(express.json());
 app.use(requestLogger);
 app.use("/v1/api/admin", tokenExtractor, auth, adminRouter);

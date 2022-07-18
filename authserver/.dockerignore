@@ -9,3 +9,5 @@ Dockerfile
 /requests-test
 added-users.json
 /tests
+redis
+logs

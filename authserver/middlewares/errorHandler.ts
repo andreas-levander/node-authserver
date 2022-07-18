@@ -3,8 +3,8 @@ import logger from "../utils/logger.js";
 
 const errorHandler = (
   error: Error,
-  request: Request,
-  response: Response,
+  _request: Request,
+  _response: Response,
   next: NextFunction
 ) => {
   logger.error(error.message);

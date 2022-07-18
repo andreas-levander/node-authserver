@@ -1,27 +1,20 @@
 import dotenv from "dotenv";
+import { parseArgNumber, parseURIString } from "./type_helper.js";
 
 dotenv.config();
 
-const parseArgNumber = (arg: string | undefined): number => {
-  const number = Number(arg);
-  if (isNaN(number))
-    throw new Error(`Environment variable ${arg} is not a number`);
-
-  return number;
-};
-
-const PORT = process.env.PORT || 4000;
+const PORT = parseArgNumber(process.env.PORT) || 4000;
 
 const MONGODB_URI =
   process.env.NODE_ENV === "test"
-    ? process.env.TEST_MONGODB_URI
-    : process.env.MONGODB_URI;
+    ? parseURIString(process.env.TEST_MONGODB_URI, "MongoDB Test URI")
+    : parseURIString(process.env.MONGODB_URI, "MongoDB URI");
 
 const USERNAME_MINLENGTH = parseArgNumber(process.env.USERNAME_MINLENGTH) || 5;
 
 const KEY_GEN_ALG = process.env.KEY_GEN_ALG || "EdDSA";
 
-const REDIS_URI = process.env.REDIS_URI;
+const REDIS_URI = parseURIString(process.env.REDIS_URI, "Redis URI");
 
 //asymmetric keys ttl in seconds
 const KEY_TTL = parseArgNumber(process.env.KEY_TTL) || 2592000;

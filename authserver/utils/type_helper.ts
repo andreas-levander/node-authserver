@@ -30,6 +30,7 @@ const parseArray = (arr: unknown, name: string): any[] => {
   if (!Array.isArray(arr)) {
     throw new Error(`${name} is not an array`);
   }
+
   return arr;
 };
 

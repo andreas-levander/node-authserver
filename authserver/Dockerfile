@@ -7,7 +7,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm tsc
+RUN npm run tsc
 
 FROM node:lts-alpine
 RUN apk add dumb-init

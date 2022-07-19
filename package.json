@@ -8,7 +8,7 @@
     "start": "ts-node ./src/index.ts",
     "dev": "nodemon",
     "test": "cross-env NODE_ENV=test node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --runInBand --forceExit",
-    "tsc": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "ts-node": "ts-node"
   },
   "author": "Andreas Levander",

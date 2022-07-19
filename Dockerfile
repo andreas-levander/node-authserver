@@ -7,9 +7,9 @@ RUN npm install
 
 COPY /src /src
 
-COPY tsconfig.json .
+COPY ["tsconfig.json", "tsconfig.build.json", "./"]
 
-RUN npm run tsc
+RUN npm run build
 
 FROM node:lts-alpine
 RUN apk add dumb-init

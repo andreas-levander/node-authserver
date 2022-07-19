@@ -1,7 +1,7 @@
 import * as jose from "jose";
 import logger from "../utils/logger.js";
 import crypto from "crypto";
-import { JWTClaimValidationFailed } from "../node_modules/jose/dist/types/util/errors.js";
+import { JWTClaimValidationFailed } from "../../node_modules/jose/dist/types/util/errors.js";
 import { KEY_GEN_ALG, KEY_TTL, TOKEN_TTL } from "../utils/config.js";
 import { redisClient } from "../app.js";
 

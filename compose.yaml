@@ -18,11 +18,13 @@ services:
     restart: unless-stopped
     command: redis-server --bind redis --requirepass some-long-password --loglevel debug --save ""
     volumes:
-      - ./authserver/redis/data:/data
+      - ./redis/data:/data
+    ports:
+      - "6379:6379"
     networks:
       - authserver
   authserver:
-    build: ./authserver # path to authserver Dockerfile
+    build: ./ # path to authserver Dockerfile
     restart: unless-stopped
     depends_on:
       - redis
@@ -31,7 +33,7 @@ services:
       - MONGODB_URI=mongodb://testuser:password@mongodb:27017/authdb
       - REDIS_URI=redis://default:some-long-password@redis:6379
     volumes:
-      - ./authserver/logs:/app/logs # where to put logs
+      - ./logs:/app/logs # where to mount logs
     ports:
       - 4000:4000
     networks:

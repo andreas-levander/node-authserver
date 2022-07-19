@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import mongoose from "mongoose";
 import supertest from "supertest";
 import app from "../app.js";
@@ -5,7 +8,7 @@ import User from "../models/User.js";
 
 const api = supertest(app);
 
-const login = async (username, password) => {
+const login = async (username: string, password: string): Promise<any> => {
   const res = await api.post("/v1/api/public/login").send({
     username,
     password,
@@ -116,6 +119,6 @@ test("only admin can remove users", async () => {
   expect(usersAtEnd).toHaveLength(2);
 });
 
-afterAll(() => {
-  mongoose.connection.close();
+afterAll(async () => {
+  await mongoose.connection.close();
 });

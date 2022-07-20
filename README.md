@@ -55,9 +55,9 @@ docker compose up
 #### Installation
 
 1. Setup your database
-2. Add your MONGODB_URI in an .env file in /authserver directory or in /authserver/utils/config.js
+2. Add your MONGODB_URI in an .env file
 3. Add your REDIS_URI in .env file
-4. Install dependencies `cd authserver && npm install`
+4. Install dependencies `npm install`
 5. Start server `npm start`
 
 ### MongoDB

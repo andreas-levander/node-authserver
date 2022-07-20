@@ -1,23 +1,27 @@
 import { NextFunction, Request, Response } from "express";
+import { ExpressJoiError } from "express-joi-validation";
 import logger from "../utils/logger.js";
 
 const errorHandler = (
-  error: Error,
+  error: any | ExpressJoiError,
   _request: Request,
-  _response: Response,
-  next: NextFunction
+  response: Response,
+  _next: NextFunction
 ) => {
-  logger.error(error.message);
-
-  //   if (error.name === "CastError") {
-  //     return response.status(400).send({ error: "malformatted id" });
-  //   } else if (error.name === "ValidationError") {
-  //     return response.status(400).json({ error: error.message });
-  //   } else if (error.name === "JsonWebTokenError") {
-  //     return response.status(401).json({ error: "invalid token" });
-  //   }
-
-  next(error);
+  if (error && error.error && error.error.isJoi) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const e: ExpressJoiError = error;
+    // e.g "you submitted a bad query"
+    let msg = "unknown";
+    if (e.error) msg = e.error.message.replaceAll('"', "");
+    return response.status(400).json({
+      error: `You submitted a bad ${e.type} paramater.`,
+      message: msg,
+    });
+  } else {
+    logger.error(error?.message);
+    return response.status(500).end("internal server error");
+  }
 };
 
 export default errorHandler;

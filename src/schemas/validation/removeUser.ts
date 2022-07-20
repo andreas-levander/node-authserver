@@ -1,21 +1,23 @@
-import Ajv, { JSONSchemaType } from "ajv";
-import { USERNAME_MINLENGTH } from "../../utils/config.js";
+import Joi from "joi";
+import ejv from "express-joi-validation";
+import {
+  createValidator,
+  ValidatedRequestSchema,
+} from "express-joi-validation";
+const { ContainerTypes } = ejv;
 
-const ajv = new Ajv.default();
+const removeUserSchema = Joi.object({
+  username: Joi.string().required(),
+});
 
-interface RemoveUser {
-  username: string;
+interface RemoveUserRequestSchema extends ValidatedRequestSchema {
+  [ContainerTypes.Body]: {
+    username: string;
+  };
 }
 
-const schema: JSONSchemaType<RemoveUser> = {
-  type: "object",
-  properties: {
-    username: { type: "string", minLength: USERNAME_MINLENGTH },
-  },
-  required: ["username"],
-  additionalProperties: false,
-};
+const removeUserBodyValidator = createValidator({ passError: true }).body(
+  removeUserSchema
+);
 
-const removeUserValidate = ajv.compile(schema);
-
-export default removeUserValidate;
+export { removeUserBodyValidator, RemoveUserRequestSchema };

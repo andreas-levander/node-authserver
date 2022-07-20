@@ -1,22 +1,32 @@
-import Ajv, { JSONSchemaType } from "ajv";
+import Joi from "joi";
+import ejv from "express-joi-validation";
+import {
+  createValidator,
+  ValidatedRequestSchema,
+} from "express-joi-validation";
+const { ContainerTypes } = ejv;
 
-const ajv = new Ajv.default();
+const loginSchema = Joi.object({
+  username: Joi.string().optional(),
+  password: Joi.string().optional(),
+});
 
-interface LoginData {
-  username: string;
-  password: string;
+interface LoginRequestSchema extends ValidatedRequestSchema {
+  [ContainerTypes.Query]: {
+    username?: string;
+    password?: string;
+  };
+  [ContainerTypes.Body]: {
+    username?: string;
+    password?: string;
+  };
 }
 
-const schema: JSONSchemaType<LoginData> = {
-  type: "object",
-  properties: {
-    username: { type: "string" },
-    password: { type: "string" },
-  },
-  required: ["username", "password"],
-  additionalProperties: false,
-};
+const loginQueryValidator = createValidator({ passError: true }).query(
+  loginSchema
+);
+const loginBodyValidator = createValidator({ passError: true }).body(
+  loginSchema
+);
 
-const loginValidate = ajv.compile(schema);
-
-export default loginValidate;
+export { loginQueryValidator, loginBodyValidator, LoginRequestSchema };

@@ -19,7 +19,7 @@ db.users.insert({
   roles: ["admin"],
 });
 
-// For local testing
+//Uncomment if you plan running the local tests
 // db_for_testing = new Mongo().getDB("authdb-test");
 
 // db_for_testing.createUser({

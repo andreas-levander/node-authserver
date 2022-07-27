@@ -22,11 +22,8 @@ interface LoginRequestSchema extends ValidatedRequestSchema {
   };
 }
 
-const loginQueryValidator = createValidator({ passError: true }).query(
-  loginSchema
-);
 const loginBodyValidator = createValidator({ passError: true }).body(
   loginSchema
 );
 
-export { loginQueryValidator, loginBodyValidator, LoginRequestSchema };
+export { loginBodyValidator, LoginRequestSchema };

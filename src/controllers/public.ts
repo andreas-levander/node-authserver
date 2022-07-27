@@ -2,10 +2,9 @@ import express from "express";
 import { createToken, getPublicKeys } from "../services/tokens.js";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
-import roles from "../schemas/roles.js";
+//import roles from "../schemas/roles.js";
 import logger from "../utils/logger.js";
 import {
-  loginQueryValidator,
   loginBodyValidator,
   LoginRequestSchema,
 } from "../schemas/validation/login.js";
@@ -17,26 +16,22 @@ publicRouter.get("/validate", async (_request, response) => {
   response.status(200).json({ keys: await getPublicKeys() });
 });
 
-publicRouter.get("/test", async (_request, response) => {
-  // For testing only
-  response.status(200).json({
-    key: await createToken({
-      username: "testuser",
-      roles: [roles.admin, roles.user],
-    }),
-  });
-});
+// publicRouter.get("/test", async (_request, response) => {
+//   // For testing only
+//   response.status(200).json({
+//     key: await createToken({
+//       username: "testuser",
+//       roles: [roles.admin, roles.user],
+//     }),
+//   });
+// });
 
 publicRouter.post(
   "/login",
-  loginQueryValidator,
   loginBodyValidator,
   async (request: ValidatedRequest<LoginRequestSchema>, response) => {
-    let { username, password } = request.body;
+    const { username, password } = request.body;
 
-    if (!username || !password) {
-      ({ username, password } = request.query);
-    }
     if (!username || !password) {
       return response
         .status(400)

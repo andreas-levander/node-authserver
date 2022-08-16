@@ -10,7 +10,7 @@ services:
       - ./mongodb/data:/data/db # where to mount the mongodb data
       - ./mongodb/docker-entrypoint-initdb.d/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     ports:
-      - "27017:27017"
+      - "27017:27017" # only if you need to connect to the database from outside the docker network
     networks:
       - authserver
   redis:
@@ -20,7 +20,7 @@ services:
     volumes:
       - ./redis/data:/data
     ports:
-      - "6379:6379"
+      - "6379:6379" # only if you need to connect to the database from outside the docker network
     networks:
       - authserver
   authserver:

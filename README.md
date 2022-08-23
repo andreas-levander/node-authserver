@@ -15,6 +15,7 @@ Authentication server created with Node.js, MongoDB and Redis to be used for Rol
   - [Redis](#redis)
 - [Configuration](#configuration)
   - [Environmental variables](#environmental-variables)
+  - [Adding roles](#adding-roles)
 - [API Endpoints](#api-endpoints)
   - [Public](#public)
   - [Private](#private)
@@ -28,6 +29,7 @@ Authentication server created with Node.js, MongoDB and Redis to be used for Rol
 - Public key endpoint to let services verify token
 - Login Api to serve authorized users a Json Web Token
 - Admin Api to create/remove users
+- Stateless (redis holds state)
 
 ## Setup
 
@@ -91,6 +93,10 @@ You can configure the authserver by setting environmental variables.
 `REDIS_URI` set your redis uri here  
 `KEY_TTL` how long the asymmetric keys used for encryption will last until renewed in seconds. default=2592000 (30 days)  
 `TOKEN_TTL` how long a issued token is valid in minutes. default=15
+
+### Adding roles  
+
+Valid roles must be added to `/src/schemas/roles.ts` otherwise they will not pass validation when creating a new user.  
 
 ## API Endpoints
 

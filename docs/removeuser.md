@@ -67,17 +67,7 @@ Request body should have username in json format
 
 ```json
 {
-    "message": "Incorrect input",
-    "error": [
-        {
-            "instancePath": "",
-            "schemaPath": "#/required",
-            "keyword": "required",
-            "params": {
-                "missingProperty": "username"
-            },
-            "message": "must have required property 'username'"
-        }
-    ]
+    "error": "You submitted a bad body paramater.",
+    "message": "username is required. usename is not allowed"
 }
 ```

@@ -91,17 +91,7 @@ Request body should have username and roles in json format
 
 ```json
 {
-    "message": "Incorrect input",
-    "error": [
-        {
-            "instancePath": "",
-            "schemaPath": "#/required",
-            "keyword": "required",
-            "params": {
-                "missingProperty": "roles"
-            },
-            "message": "must have required property 'roles'"
-        }
-    ]
+    "error": "You submitted a bad body paramater.",
+    "message": "roles must be an array"
 }
 ```
